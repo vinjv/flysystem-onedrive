@@ -20,7 +20,7 @@
             "name": "Mario Perrotta",
             "email": "mario.perrotta@unimi.it",
             "role": "Developer"
-        },
+        }
     ],
     "require": {
         "php": "^7.0",
