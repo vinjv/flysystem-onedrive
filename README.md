@@ -1,4 +1,4 @@
-## This package is not maintained anymore.
+## This package is based on the repo no more maintained of nicolasbeauvais.
 
 # Flysystem adapter for the Microsoft OneDrive API
 
@@ -16,6 +16,16 @@ You can install the package via composer:
 
 ``` bash
 composer require nicolasbeauvais/flysystem-onedrive
+```
+or add direct this repo in composer.json
+
+```json
+"repositories": [
+        {
+            "url": "https://github.com/hevelius/flysystem-onedrive.git",
+            "type": "git"
+        }
+    ],
 ```
 
 ## Usage
