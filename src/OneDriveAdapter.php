@@ -307,8 +307,9 @@ class OneDriveAdapter extends AbstractAdapter
 
         try {
             $contents = $stream = \GuzzleHttp\Psr7\stream_for($contents);
-            
-            $file = file_get_contents($contents->getUri());
+            $info = json_decode($contents, true);
+
+            $file = file_get_contents($info->uri);
             $fileSize = strlen($file);
 
             $response = $this->graph->createRequest('PUT', $path.($this->usePath ? ':' : '').'/content')
