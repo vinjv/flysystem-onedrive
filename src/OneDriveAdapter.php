@@ -310,9 +310,6 @@ class OneDriveAdapter extends AbstractAdapter
             $contents = $stream = \GuzzleHttp\Psr7\stream_for($contents);
             $info = json_decode($contents, true);
 
-            //$file = file_get_contents($info->uri);
-            //$fileSize = strlen($file);
-
             $uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
