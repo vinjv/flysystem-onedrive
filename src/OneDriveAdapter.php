@@ -316,11 +316,9 @@ class OneDriveAdapter extends AbstractAdapter
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
                     "item" => [
-                        "@microsoft.graph.conflictBehavior" => "rename",
-                        "description"    => 'File description here'
+                        "@microsoft.graph.conflictBehavior" => "rename"
                     ]
                 ])
-                ->setReturnType(Model\UploadSession::class)
                 ->execute();
 
             $response = $this->graph->createRequest('PUT', $uploadSession->getUploadUrl())
