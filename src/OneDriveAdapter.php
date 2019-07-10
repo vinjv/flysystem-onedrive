@@ -312,7 +312,7 @@ class OneDriveAdapter extends AbstractAdapter
             //$file = file_get_contents($info->uri);
             //$fileSize = strlen($file);
 
-            $uploadSession = $graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
+            $uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
                     "item" => [
