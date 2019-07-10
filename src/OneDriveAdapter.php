@@ -7,6 +7,7 @@ use Microsoft\Graph\Graph;
 use League\Flysystem\Config;
 use League\Flysystem\Adapter\AbstractAdapter;
 use League\Flysystem\Adapter\Polyfill\NotSupportingVisibilityTrait;
+use Microsoft\Graph\Model;
 
 class OneDriveAdapter extends AbstractAdapter
 {
@@ -319,9 +320,11 @@ class OneDriveAdapter extends AbstractAdapter
                         "@microsoft.graph.conflictBehavior" => "rename"
                     ]
                 ])
+                ->setReturnType(Model\UploadSession::class)
                 ->execute();
 
             $response = $this->graph->createRequest('PUT', $uploadSession->getUploadUrl())
+                ->setReturnType(Model\UploadSession::class)
                 ->attachBody($contents)
                 ->execute();
 
