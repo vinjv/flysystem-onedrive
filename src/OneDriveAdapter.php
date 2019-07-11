@@ -314,7 +314,7 @@ class OneDriveAdapter extends AbstractAdapter
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
                     "item" => [
-                        "@microsoft.graph.conflictBehavior" => "replace"
+                        "@microsoft.graph.conflictBehavior" => "rename"
                     ]
                 ])
                 ->setReturnType(Model\UploadSession::class)
