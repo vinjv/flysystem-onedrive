@@ -314,7 +314,7 @@ class OneDriveAdapter extends AbstractAdapter
             array_splice($path, -2);
             $path = implode($path);
 
-            $uploadSession = $this->graph->createRequest("POST", "/me/drive/root:/example.pdf/createUploadSession")
+            $uploadSession = $this->graph->createRequest("POST", "/me/drive/root:/example.pdf:/createUploadSession")
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
                     "item" => [
