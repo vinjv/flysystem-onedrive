@@ -311,7 +311,7 @@ class OneDriveAdapter extends AbstractAdapter
             $info = json_decode($contents, true);
 
             $path = explode(".", $path);
-            array_splice(explode(".",$path), -2);
+            array_splice($path, -2);
             $path = implode($path);
 
             $uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
