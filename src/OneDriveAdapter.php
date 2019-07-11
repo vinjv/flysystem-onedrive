@@ -308,7 +308,6 @@ class OneDriveAdapter extends AbstractAdapter
 
         try {
             $contents = $stream = \GuzzleHttp\Psr7\stream_for($contents);
-            $info = json_decode($contents, true);
 
             $uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
                 ->addHeaders(["Content-Type" => "application/json"])
@@ -334,7 +333,7 @@ class OneDriveAdapter extends AbstractAdapter
                     $end = $fileNbByte;
                 }
                 $stream = \GuzzleHttp\Psr7\stream_for($bytes);
-                $res = $this->graph->createRequest("PUT", $uploadSession->getUploadUrl())
+                $response = $this->graph->createRequest("PUT", $uploadSession->getUploadUrl())
                     ->addHeaders([
                         'Content-Length' => ($end - 1) - $start,
                         'Content-Range' => "bytes " . $start . "-" . $end . "/" . $fileSize
