@@ -309,7 +309,11 @@ class OneDriveAdapter extends AbstractAdapter
         try {
             $contents = $stream = \GuzzleHttp\Psr7\stream_for($contents);
 
-            $uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
+            $file = $contents->getMetadata('uri');
+            $fileSize = fileSize($file);
+
+            if ($fileSize > 4000000) {
+                $uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
                     "item" => [
@@ -319,37 +323,37 @@ class OneDriveAdapter extends AbstractAdapter
                 ->setReturnType(Model\UploadSession::class)
                 ->execute();
 
-            $file = $contents->getMetadata('uri');
-            $handle = fopen($file, 'r');
-            $fileSize = fileSize($file);
-            $fileNbByte = $fileSize - 1;
-            $chunkSize = 1024*1024*4;
-            $fgetsLength = $chunkSize + 1;
-            $start = 0;
-            while (!feof($handle)) {
-                $bytes = fread($handle, $fgetsLength);
-                $end = $chunkSize + $start;
-                if ($end > $fileNbByte) {
-                    $end = $fileNbByte;
+                $handle = fopen($file, 'r');
+                $fileNbByte = $fileSize - 1;
+                $chunkSize = 1024*1024*4;
+                $fgetsLength = $chunkSize + 1;
+                $start = 0;
+                while (!feof($handle)) {
+                    $bytes = fread($handle, $fgetsLength);
+                    $end = $chunkSize + $start;
+                    if ($end > $fileNbByte) {
+                        $end = $fileNbByte;
+                    }
+                    $stream = \GuzzleHttp\Psr7\stream_for($bytes);
+                    $response = $this->graph->createRequest("PUT", $uploadSession->getUploadUrl())
+                        ->addHeaders([
+                            'Content-Length' => ($end - 1) - $start,
+                            'Content-Range' => "bytes " . $start . "-" . $end . "/" . $fileSize
+                        ])
+                        ->setReturnType(Model\UploadSession::class)
+                        ->attachBody($bytes)
+                        ->execute();
+                
+                    $start = $end + 1;
                 }
-                $stream = \GuzzleHttp\Psr7\stream_for($bytes);
-                $response = $this->graph->createRequest("PUT", $uploadSession->getUploadUrl())
-                    ->addHeaders([
-                        'Content-Length' => ($end - 1) - $start,
-                        'Content-Range' => "bytes " . $start . "-" . $end . "/" . $fileSize
-                    ])
-                    ->setReturnType(Model\UploadSession::class)
-                    ->attachBody($bytes)
-                    ->execute();
-            
-                $start = $end + 1;
-            }
-            /*
-            $response = $this->graph->createRequest('PUT', $uploadSession->getUploadUrl())
-                ->setReturnType(Model\UploadSession::class)
+
+            } else {
+                $response = $this->graph->createRequest('PUT', $path.($this->usePath ? ':' : '').'/content')
                 ->attachBody($contents)
                 ->execute();
-            */
+            }
+            
+       
         } catch (\Exception $e) {
             return false;
         }
