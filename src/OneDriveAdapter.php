@@ -320,7 +320,7 @@ class OneDriveAdapter extends AbstractAdapter
                 ->setReturnType(Model\UploadSession::class)
                 ->execute();
 
-            $file = __DIR__.$contents['uri'];
+            $file = __DIR__.$contents->uri;
             $handle = fopen($file, 'r');
             $fileSize = fileSize($file);
             $fileNbByte = $fileSize - 1;
