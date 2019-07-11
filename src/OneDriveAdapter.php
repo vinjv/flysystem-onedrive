@@ -310,11 +310,7 @@ class OneDriveAdapter extends AbstractAdapter
             $contents = $stream = \GuzzleHttp\Psr7\stream_for($contents);
             $info = json_decode($contents, true);
 
-            $path = explode(".", $path);
-            array_splice($path, -2);
-            $path = implode($path);
-
-            $uploadSession = $this->graph->createRequest("POST", "/me/drive/root:/example.pdf:/createUploadSession")
+            $uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
                     "item" => [
@@ -324,11 +320,37 @@ class OneDriveAdapter extends AbstractAdapter
                 ->setReturnType(Model\UploadSession::class)
                 ->execute();
 
+            $file = __DIR__.$contents['uri'];
+            $handle = fopen($file, 'r');
+            $fileSize = fileSize($file);
+            $fileNbByte = $fileSize - 1;
+            $chunkSize = 1024*1024*4;
+            $fgetsLength = $chunkSize + 1;
+            $start = 0;
+            while (!feof($handle)) {
+                $bytes = fread($handle, $fgetsLength);
+                $end = $chunkSize + $start;
+                if ($end > $fileNbByte) {
+                    $end = $fileNbByte;
+                }
+                $stream = \GuzzleHttp\Psr7\stream_for($bytes);
+                $res = $this->graph->createRequest("PUT", $uploadSession->getUploadUrl())
+                    ->addHeaders([
+                        'Content-Length' => ($end - 1) - $start,
+                        'Content-Range' => "bytes " . $start . "-" . $end . "/" . $fileSize
+                    ])
+                    ->setReturnType(Model\UploadSession::class)
+                    ->attachBody($bytes)
+                    ->execute();
+            
+                $start = $end + 1;
+            }
+            /*
             $response = $this->graph->createRequest('PUT', $uploadSession->getUploadUrl())
                 ->setReturnType(Model\UploadSession::class)
                 ->attachBody($contents)
                 ->execute();
-
+            */
         } catch (\Exception $e) {
             return false;
         }
