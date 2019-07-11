@@ -320,7 +320,6 @@ class OneDriveAdapter extends AbstractAdapter
                 ->setReturnType(Model\UploadSession::class)
                 ->execute();
 
-            $tmp_dir = ini_get('upload_tmp_dir') ? ini_get('upload_tmp_dir') : sys_get_temp_dir();
             $file = $tmp_dir.$contents->getMetadata('uri');
             $handle = fopen($file, 'r');
             $fileSize = fileSize($file);
