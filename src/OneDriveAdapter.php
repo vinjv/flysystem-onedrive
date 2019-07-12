@@ -337,6 +337,15 @@ class OneDriveAdapter extends AbstractAdapter
                         $end = $fileNbByte;
                     }
                     $stream = \GuzzleHttp\Psr7\stream_for($bytes);
+
+                    $one = $stream->getMetadata('uri');
+                    // /path/to/file
+                    $two = $stream->isReadable();
+                    // true
+                    $three = $stream->isWritable();
+                    // false
+                    $four = $stream->isSeekable();
+
                     $response = $this->graph->createRequest("PUT", $uploadSession->getUploadUrl())
                         ->addHeaders([
                             'Content-Length' => ($end - 1) - $start,
