@@ -351,7 +351,7 @@ class OneDriveAdapter extends AbstractAdapter
                     $start = $end + 1;
                 }
 
-                return $this->normalizeResponse($response->_propDict, $path);
+                return $this->normalizeResponse($response->getProperties(), $path);
 
             } else {
                 $response = $this->graph->createRequest('PUT', $path.($this->usePath ? ':' : '').'/content')
