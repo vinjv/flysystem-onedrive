@@ -343,7 +343,7 @@ class OneDriveAdapter extends AbstractAdapter
                             'Content-Range' => "bytes " . $start . "-" . $end . "/" . $fileSize
                         ])
                         ->setReturnType(Model\UploadSession::class)
-                        ->attachBody($stream)
+                        ->attachBody($bytes)
                         ->execute();
                 
                     $start = $end + 1;
