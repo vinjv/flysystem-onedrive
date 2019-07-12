@@ -341,14 +341,14 @@ class OneDriveAdapter extends AbstractAdapter
 
                     $response = $this->graph->createRequest("PUT", $uploadSession->getUploadUrl())
                         ->addHeaders([
-                            'Content-Length' => $end - $start,
-                            'Content-Range' => "bytes " . $start . "-" . ($end - 1) . "/" . $fileSize
+                            'Content-Length' => ($end + 1) - $start,
+                            'Content-Range' => "bytes " . $start . "-" . $end . "/" . $fileSize
                         ])
                         ->setReturnType(Model\UploadSession::class)
                         ->attachBody($stream)
                         ->execute();
                 
-                    $start = $end;
+                    $start = $end + 1;
                 }
 
             } else {
