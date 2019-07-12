@@ -342,7 +342,7 @@ class OneDriveAdapter extends AbstractAdapter
                     $response = $this->graph->createRequest("PUT", $uploadSession->getUploadUrl())
                         ->addHeaders([
                             'Content-Length' => ($end + 1) - $start,
-                            'Content-Range' => "bytes " . $start . "-" . $end . "/" . $fileNbByte
+                            'Content-Range' => "bytes " . $start . "-" . $end . "/" . $fileSize
                         ])
                         ->setReturnType(Model\UploadSession::class)
                         ->attachBody($stream)
