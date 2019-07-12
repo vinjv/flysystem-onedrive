@@ -327,7 +327,7 @@ class OneDriveAdapter extends AbstractAdapter
 
                 $handle = fopen($file, 'r');
                 $fileNbByte = $fileSize - 1;
-                $chunkSize = 1024*1024*3;
+                $chunkSize = 1024*1024*4;
                 $fgetsLength = $chunkSize + 1;
                 $start = 0;
                 while (!feof($handle)) {
