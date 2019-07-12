@@ -314,7 +314,7 @@ class OneDriveAdapter extends AbstractAdapter
 
             if ($fileSize > 4000000) {
                 //$uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
-                $uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
+                $uploadSession = $this->graph->createRequest("POST", "/me/drive/root:/example.pdf:/createUploadSession")
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
                     "item" => [
