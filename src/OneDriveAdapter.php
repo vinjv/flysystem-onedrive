@@ -338,6 +338,8 @@ class OneDriveAdapter extends AbstractAdapter
                     }
                     $stream = \GuzzleHttp\Psr7\stream_for($bytes);
 
+                    $tmpPath = sys_get_temp_dir();
+                    
                     $one = $stream->getMetadata('uri');
                     // /path/to/file
                     $two = $stream->isReadable();
