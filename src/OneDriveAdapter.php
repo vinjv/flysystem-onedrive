@@ -348,7 +348,7 @@ class OneDriveAdapter extends AbstractAdapter
                         ->attachBody($stream)
                         ->execute();
                 
-                    $start = $end + 1;
+                    $start = $end;
                 }
 
             } else {
