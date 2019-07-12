@@ -313,6 +313,7 @@ class OneDriveAdapter extends AbstractAdapter
             $fileSize = fileSize($file);
 
             if ($fileSize > 4000000) {
+                //$uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
                 $uploadSession = $this->graph->createRequest("POST", $path.($this->usePath ? ':' : '')."/createUploadSession")
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
@@ -335,7 +336,7 @@ class OneDriveAdapter extends AbstractAdapter
                         $end = $fileNbByte;
                     }
                     $stream = \GuzzleHttp\Psr7\stream_for($bytes);
-                    $response = $this->graph->createRequest("PUT", $uploadSession->getUploadUrl())
+                    $response = $this->graph->createRequest("PUT", "https://unimi2013-my.sharepoint.com/personal/mario_perrotta_unimi_it/_api/v2.0/drive/items/01UBDZXLF6Y2GOVW7725BZO354PWSELRRZ/uploadSession?guid='68d51f15-1557-4af8-9b2b-e5698d372b1a'&path='~tmp25_example.pdf'&overwrite=True&rename=False&dc=0&tempauth=eyJ0eXAiOiJKV1QiLCJhbGciOiJub25lIn0.eyJhdWQiOiIwMDAwMDAwMy0wMDAwLTBmZjEtY2UwMC0wMDAwMDAwMDAwMDAvdW5pbWkyMDEzLW15LnNoYXJlcG9pbnQuY29tQDEzYjU1ZWVmLTcwMTgtNDY3NC1hM2Q3LWNjMGRiMDZkNTQ1YyIsImlzcyI6IjAwMDAwMDAzLTAwMDAtMGZmMS1jZTAwLTAwMDAwMDAwMDAwMCIsIm5iZiI6IjE1NjI5MTI1OTciLCJleHAiOiIxNTYyOTk4OTk3IiwiZW5kcG9pbnR1cmwiOiJwcHkrRjhRQkFraXo5TmZKeUhuVW95WGhUM05xdXpnWmxTTDgvc1YrRDBFPSIsImVuZHBvaW50dXJsTGVuZ3RoIjoiMjQyIiwiaXNsb29wYmFjayI6IlRydWUiLCJjaWQiOiJaVGhtTnpjeE1HRXRPVEkyTVMwMFpqazFMVGxqWVdRdE5UTXhZak15TVdFMU16TmgiLCJ2ZXIiOiJoYXNoZWRwcm9vZnRva2VuIiwic2l0ZWlkIjoiTnpnNFpqSmpaR010WVRkbE1TMDBNRGcyTFdFM1lXTXRPV1V5WkdWaE1tRTJaVE5sIiwiYXBwX2Rpc3BsYXluYW1lIjoiR3JhcGggZXhwbG9yZXIiLCJnaXZlbl9uYW1lIjoiTWFyaW8iLCJmYW1pbHlfbmFtZSI6IlBlcnJvdHRhIiwic2lnbmluX3N0YXRlIjoiW1wia21zaVwiXSIsImFwcGlkIjoiZGU4YmM4YjUtZDlmOS00OGIxLWE4YWQtYjc0OGRhNzI1MDY0IiwidGlkIjoiMTNiNTVlZWYtNzAxOC00Njc0LWEzZDctY2MwZGIwNmQ1NDVjIiwidXBuIjoibWFyaW8ucGVycm90dGFAdW5pbWkuaXQiLCJwdWlkIjoiMTAwMzIwMDA0ODg4RkUyQyIsImNhY2hla2V5IjoiMGguZnxtZW1iZXJzaGlwfDEwMDMyMDAwNDg4OGZlMmNAbGl2ZS5jb20iLCJzY3AiOiJhbGxmaWxlcy53cml0ZSBhbGxzaXRlcy53cml0ZSIsInR0IjoiMiIsInVzZVBlcnNpc3RlbnRDb29raWUiOm51bGx9.RklJSXRURWlZcnhHbW1zZFBOekhyZW1tMVRHb0lDbGtkRHlmbzR4Mi9zYz0")
                         ->addHeaders([
                             'Content-Length' => ($end - 1) - $start,
                             'Content-Range' => "bytes " . $start . "-" . $end . "/" . $fileSize
