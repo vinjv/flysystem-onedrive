@@ -304,6 +304,7 @@ class OneDriveAdapter extends AbstractAdapter
      */
     protected function upload(string $path, $contents)
     {
+        $filename = $path;
         $path = $this->applyPathPrefix($path);
 
         try {
@@ -317,7 +318,8 @@ class OneDriveAdapter extends AbstractAdapter
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
                     "item" => [
-                        "@microsoft.graph.conflictBehavior" => "rename"
+                        "@microsoft.graph.conflictBehavior" => "rename",
+                        "name" => $filename
                     ]
                 ])
                 ->setReturnType(Model\UploadSession::class)
@@ -334,31 +336,36 @@ class OneDriveAdapter extends AbstractAdapter
                     if ($end > $fileNbByte) {
                         $end = $fileNbByte;
                     }
+
                     $stream = \GuzzleHttp\Psr7\stream_for($bytes);
+
                     $response = $this->graph->createRequest("PUT", $uploadSession->getUploadUrl())
                         ->addHeaders([
-                            'Content-Length' => ($end - 1) - $start,
+                            'Content-Length' => ($end + 1) - $start,
                             'Content-Range' => "bytes " . $start . "-" . $end . "/" . $fileSize
                         ])
                         ->setReturnType(Model\UploadSession::class)
-                        ->attachBody($bytes)
+                        ->attachBody($stream)
                         ->execute();
                 
                     $start = $end + 1;
                 }
 
+                return $this->normalizeResponse($response->getProperties(), $path);
+
             } else {
                 $response = $this->graph->createRequest('PUT', $path.($this->usePath ? ':' : '').'/content')
                 ->attachBody($contents)
                 ->execute();
+
+                return $this->normalizeResponse($response->getBody(), $path);
             }
             
        
         } catch (\Exception $e) {
             return false;
         }
-
-        return $this->normalizeResponse($response->getBody(), $path);
+        
     }
 
     protected function normalizeResponse(array $response, string $path): array
