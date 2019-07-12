@@ -351,18 +351,21 @@ class OneDriveAdapter extends AbstractAdapter
                     $start = $end + 1;
                 }
 
+                return $this->normalizeResponse($response, $path);
+
             } else {
                 $response = $this->graph->createRequest('PUT', $path.($this->usePath ? ':' : '').'/content')
                 ->attachBody($contents)
                 ->execute();
+
+                return $this->normalizeResponse($response->getBody(), $path);
             }
             
        
         } catch (\Exception $e) {
             return false;
         }
-
-        return $this->normalizeResponse(method_exists($response, 'getBody') ? $response->getBody() : $response['_propDict'], $path);
+        
     }
 
     protected function normalizeResponse(array $response, string $path): array
