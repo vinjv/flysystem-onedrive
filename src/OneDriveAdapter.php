@@ -304,6 +304,7 @@ class OneDriveAdapter extends AbstractAdapter
      */
     protected function upload(string $path, $contents)
     {
+        $filename = $path;
         $path = $this->applyPathPrefix($path);
 
         try {
@@ -317,7 +318,8 @@ class OneDriveAdapter extends AbstractAdapter
                 ->addHeaders(["Content-Type" => "application/json"])
                 ->attachBody([
                     "item" => [
-                        "@microsoft.graph.conflictBehavior" => "rename"
+                        "@microsoft.graph.conflictBehavior" => "rename",
+                        "name" => $filename
                     ]
                 ])
                 ->setReturnType(Model\UploadSession::class)
