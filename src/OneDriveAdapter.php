@@ -301,7 +301,7 @@ class OneDriveAdapter extends AbstractAdapter
      */
     protected function upload(string $path, $contents)
     {
-        $filename = $path;
+        $filename = basename($path);
         $path = $this->applyPathPrefix($path);
 
         try {
