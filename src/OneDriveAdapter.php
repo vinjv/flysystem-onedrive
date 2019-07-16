@@ -71,10 +71,7 @@ class OneDriveAdapter extends AbstractAdapter
         try {
             $this->graph->createRequest('PATCH', $endpoint)
                 ->attachBody([
-                    'name' => end($patch),
-                    'parentReference' => [
-                        'path' => $this->getPathPrefix().(empty($sliced) ? '' : rtrim($sliced, '/').'/'),
-                    ],
+                    'name' => end($patch)
                 ])
                 ->execute();
         } catch (\Exception $e) {
