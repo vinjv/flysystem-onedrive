@@ -197,6 +197,7 @@ class OneDriveAdapter extends AbstractAdapter
                 ->download($file);
 
             $stream = fopen($file, 'r');
+            unlink($file);
         } catch (\Exception $e) {
             return false;
         }
