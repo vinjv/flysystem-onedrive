@@ -1,6 +1,6 @@
 <?php
 
-namespace NicolasBeauvais\FlysystemOneDrive;
+namespace MarioPerrotta\FlysystemOneDrive;
 
 use ArrayObject;
 use Microsoft\Graph\Graph;
