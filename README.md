@@ -2,11 +2,9 @@
 
 # Flysystem adapter for the Microsoft OneDrive API
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/nicolasbeauvais/flysystem-onedrive.svg?style=flat-square)](https://packagist.org/packages/nicolasbeauvais/flysystem-onedrive)
-[![Build Status](https://img.shields.io/travis/nicolasbeauvais/flysystem-onedrive/master.svg?style=flat-square)](https://travis-ci.org/nicolasbeauvais/flysystem-onedrive)
-[![StyleCI](https://styleci.io/repos/100028565/shield?branch=master)](https://styleci.io/repos/100028565)
-[![Quality Score](https://img.shields.io/scrutinizer/g/nicolasbeauvais/flysystem-onedrive.svg?style=flat-square)](https://scrutinizer-ci.com/g/nicolasbeauvais/flysystem-onedrive)
-[![Total Downloads](https://img.shields.io/packagist/dt/nicolasbeauvais/flysystem-onedrive.svg?style=flat-square)](https://packagist.org/packages/nicolasbeauvais/flysystem-onedrive)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hevelius/flysystem-onedrive.svg?style=flat-square)](https://packagist.org/packages/hevelius/flysystem-onedrive)
+[![Build Status](https://img.shields.io/travis/hevelius/flysystem-onedrive/master.svg?style=flat-square)](https://travis-ci.org/hevelius/flysystem-onedrive)
+[![Total Downloads](https://img.shields.io/packagist/dt/hevelius/flysystem-onedrive.svg?style=flat-square)](https://packagist.org/packages/hevelius/flysystem-onedrive)
 
 This package contains a [Flysystem](https://flysystem.thephpleague.com/) adapter for OneDrive. Under the hood, the [Microsoft Graph SDK](https://github.com/microsoftgraph/msgraph-sdk-php) is used.
 
@@ -15,7 +13,7 @@ This package contains a [Flysystem](https://flysystem.thephpleague.com/) adapter
 You can install the package via composer:
 
 ``` bash
-composer require nicolasbeauvais/flysystem-onedrive
+composer require hevelius/flysystem-onedrive
 ```
 or add direct this repo in composer.json
 
@@ -35,7 +33,7 @@ The first thing you need to do is get an authorization token for the Microsoft G
 ``` php
 use Microsoft\Graph\Graph;
 use League\Flysystem\Filesystem;
-use NicolasBeauvais\FlysystemOneDrive\OneDriveAdapter;
+use MarioPerrotta\FlysystemOneDrive\OneDriveAdapter;
 
 $graph = new Graph();
 $graph->setAccessToken('EwBIA8l6BAAU7p9QDpi...');
@@ -69,6 +67,7 @@ If you discover any security related issues, please email nicolasbeauvais1@gmail
 ## Credits
 
 - [Nicolas Beauvais](https://github.com/nicolasbeauvais)
+- [Mario Perrotta](https://github.com/hevelius)
 - [All Contributors](../../contributors)
 
 ## License

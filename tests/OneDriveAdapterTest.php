@@ -1,11 +1,11 @@
 <?php
 
-namespace NicolasBeauvais\FlysystemOneDrive\Test;
+namespace MarioPerrotta\FlysystemOneDrive\Test;
 
 use Microsoft\Graph\Graph;
 use PHPUnit\Framework\TestCase;
 use Microsoft\Graph\Http\GraphRequest;
-use NicolasBeauvais\FlysystemOneDrive\OneDriveAdapter;
+use MarioPerrotta\FlysystemOneDrive\OneDriveAdapter;
 
 class OneDriveAdapterTest extends TestCase
 {
