@@ -28,7 +28,7 @@ or add direct this repo in composer.json
 
 ## Usage
 
-The first thing you need to do is get an authorization token for the Microsoft Graph API. For that you need to create an app on the [Microsoft App Registration Portal](https://apps.dev.microsoft.com/).
+The first thing you need to do is get an authorization token for the Microsoft Graph API. For that you need to create an app on the [Microsoft Azure Portal](https://portal.azure.com/).
 
 ``` php
 use Microsoft\Graph\Graph;
