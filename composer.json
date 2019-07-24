@@ -1,5 +1,5 @@
 {
-    "name": "nicolasbeauvais/flysystem-onedrive",
+    "name": "hevelius/flysystem-onedrive",
     "description": "Flysystem Adapter for the OneDrive API",
     "keywords": [
         "flysystem-onedrive",
@@ -7,13 +7,12 @@
         "onedrive",
         "api"
     ],
-    "homepage": "https://github.com/nicolasbeauvais/flysystem-onedrive",
+    "homepage": "https://github.com/hevelius/flysystem-onedrive",
     "license": "MIT",
     "authors": [
         {
-            "name": "Nicolas Beauvais",
-            "email": "nicolasbeauvais1@gmail.com",
-            "homepage": "http://nicolas-beauvais.com",
+            "name": "Mario Perrotta",
+            "email": "mario.perrotta@unimi.it",
             "role": "Developer"
         }
     ],
@@ -27,12 +26,12 @@
     },
     "autoload": {
         "psr-4": {
-            "NicolasBeauvais\\FlysystemOneDrive\\": "src"
+            "MarioPerrotta\\FlysystemOneDrive\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "NicolasBeauvais\\FlysystemOneDrive\\Test\\": "tests"
+            "MarioPerrotta\\FlysystemOneDrive\\Test\\": "tests"
         }
     },
     "scripts": {
