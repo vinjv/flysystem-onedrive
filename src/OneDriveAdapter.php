@@ -71,7 +71,10 @@ class OneDriveAdapter extends AbstractAdapter
         try {
             $this->graph->createRequest('PATCH', $endpoint)
                 ->attachBody([
-                    'name' => end($patch)
+                    'name' => end($patch),
+                    'parentReference' => [
+                        'path' => $this->getPathPrefix().(empty($sliced) ? '' : rtrim($sliced, '/').'/'),
+                    ]
                 ])
                 ->execute();
         } catch (\Exception $e) {
@@ -244,7 +247,11 @@ class OneDriveAdapter extends AbstractAdapter
      */
     public function getMetadata($path)
     {
-        $path = $this->applyPathPrefix($path);
+        if ($path === '' && $this->usePath) {
+            $path = str_replace(':/', '', $this->getPathPrefix()).'/children';
+        } else {
+            $path = $this->applyPathPrefix($path);
+	    }
 
         try {
             $response = $this->graph->createRequest('GET', $path)->execute();
