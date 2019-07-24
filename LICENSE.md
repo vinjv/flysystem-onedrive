@@ -1,6 +1,7 @@
 # The MIT License (MIT)
 
-Copyright (c)  Nicolas Beauvais <nicolasbeauvais1@gmail.com>
+Original work Copyright (c)  Nicolas Beauvais <nicolasbeauvais1@gmail.com>
+Modified work Copyright (c)  Mario Perrotta <perrotta.mr@gmail.com>
 
 > Permission is hereby granted, free of charge, to any person obtaining a copy
 > of this software and associated documentation files (the "Software"), to deal
