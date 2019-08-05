@@ -2,6 +2,10 @@
 
 All notable changes to `flysystem-onedrive` will be documented in this file
 
+## 1.0.4 - 2019-08-05
+
+- Minor bugs fixed
+
 ## 1.0.3 - 2019-07-24
 
 - Minor bugs fixed
