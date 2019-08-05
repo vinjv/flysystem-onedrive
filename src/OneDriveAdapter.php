@@ -73,7 +73,7 @@ class OneDriveAdapter extends AbstractAdapter
                 ->attachBody([
                     'name' => end($patch),
                     'parentReference' => [
-                        'path' => $this->getPathPrefix().(empty($sliced) ? '' : rtrim($sliced, '/').'/'),
+                        'path' => substr($this->getPathPrefix(), 3).(empty($sliced) ? '' : rtrim($sliced, '/').'/'),
                     ]
                 ])
                 ->execute();
