@@ -375,13 +375,15 @@ class OneDriveAdapter extends AbstractAdapter
 
     protected function normalizeResponse(array $response, string $path): array
     {
+	$path = str_replace("root/children","root:/children", $path);
         $path = trim($this->removePathPrefix($path), '/');
 
         return [
             'path' => empty($path) ? $response['name'] : $path.'/'.$response['name'],
-            'timestamp' => strtotime($response['lastModifiedDateTime']),
-            'size' => $response['size'],
-            'bytes' => $response['size'],
+	        'name' => isset($response['name']) ? $response['name'] : null,
+            'timestamp' => isset($response['lastModifiedDateTime']) ? strtotime($response['lastModifiedDateTime']) : null,
+            'size' => isset($response['size']) ? $response['size'] : null,
+            'bytes' => isset($response['size']) ? $response['size'] : null,
             'type' => isset($response['file']) ? 'file' : 'dir',
             'mimetype' => isset($response['file']) ? $response['file']['mimeType'] : null,
             'link' => isset($response['webUrl']) ? $response['webUrl'] : null,
