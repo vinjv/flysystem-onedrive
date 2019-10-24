@@ -18,7 +18,7 @@ class OneDriveAdapter extends AbstractAdapter
 
     private $usePath;
 
-    public function __construct(Graph $graph, $prefix = 'root', $base = '/me/drive/', $usePath = true)
+    public function __construct(Graph $graph, $prefix = 'root', $base = '/drive/', $usePath = true)
     {
         $this->graph = $graph;
         $this->usePath = $usePath;
@@ -73,12 +73,24 @@ class OneDriveAdapter extends AbstractAdapter
                 ->attachBody([
                     'name' => end($patch),
                     'parentReference' => [
-                        'path' => substr($this->getPathPrefix(), 3).(empty($sliced) ? '' : rtrim($sliced, '/').'/'),
+                        'path' => $this->getPathPrefix().(empty($sliced) ? '' : rtrim($sliced, '/').'/'),
                     ]
                 ])
                 ->execute();
         } catch (\Exception $e) {
-            return false;
+ 	    try {
+            $this->graph->createRequest('PATCH', $endpoint)
+                ->attachBody([
+                    'name' => end($patch),
+                    'parentReference' => [
+                        'path' => substr($this->getPathPrefix(), 3).(empty($sliced) ? '' : rtrim($sliced, '/').'/'),
+                    ]
+                ])
+                ->execute();
+
+ 	    } catch (\Exception $e){
+		return false;
+  	    } 
         }
 
         return true;
