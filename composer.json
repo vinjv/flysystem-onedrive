@@ -1,5 +1,5 @@
 {
-    "name": "hevelius/flysystem-onedrive",
+    "name": "vinjv/flysystem-onedrive",
     "description": "Flysystem Adapter for the OneDrive API",
     "keywords": [
         "flysystem-onedrive",
@@ -7,7 +7,7 @@
         "onedrive",
         "api"
     ],
-    "homepage": "https://github.com/hevelius/flysystem-onedrive",
+    "homepage": "https://github.com/vinjv/flysystem-onedrive",
     "license": "MIT",
     "authors": [
         {
