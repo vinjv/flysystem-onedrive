@@ -39,7 +39,7 @@ class OneDriveAdapter extends AbstractAdapter
 
         $this->setPathPrefix($base.$prefix.($this->usePath ? ':' : ''));
     }
-
+ 
     /**
      * {@inheritdoc}
      */
