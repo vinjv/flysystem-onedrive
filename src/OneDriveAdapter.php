@@ -2,11 +2,25 @@
 
 namespace MarioPerrotta\FlysystemOneDrive;
 
+use Exception;
 use ArrayObject;
-use Microsoft\Graph\Graph;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Psr7\StreamWrapper;
+use GuzzleHttp\Psr7\Utils;
+use Illuminate\Support\Facades\Http;
 use League\Flysystem\Config;
 use League\Flysystem\Adapter\AbstractAdapter;
 use League\Flysystem\Adapter\Polyfill\NotSupportingVisibilityTrait;
+use League\Flysystem\FileAttributes;
+use League\Flysystem\DirectoryAttributes;
+use League\Flysystem\FilesystemAdapter;
+use League\Flysystem\StorageAttributes;
+use League\Flysystem\UnableToReadFile;
+use League\Flysystem\UnableToRetrieveMetadata;
+use League\Flysystem\UnableToSetVisibility;
+use Microsoft\Graph\Exception\GraphException;
+use Microsoft\Graph\Graph;
+use Microsoft\Graph\Http\GraphResponse;
 use Microsoft\Graph\Model;
 
 class OneDriveAdapter extends AbstractAdapter
